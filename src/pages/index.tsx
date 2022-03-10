@@ -32,6 +32,7 @@ export default function HomePage() {
               width='362'
               height='175'
               alt='Icon'
+              priority
             />
             <h1 className='sr-only'>Malaysian Paygap</h1>
             <p className='mt-2 text-lg text-white'>Goodbye Wage Taboo</p>

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { openGraph } from '@/lib/helper';
 
 const defaultMeta = {
-  title: 'Malaysian Pay Gap',
+  title: 'Goodbye Wage Taboo | Malaysian Pay Gap',
   siteName: 'Malaysian Pay Gap',
   description: 'Goodbye Wage Taboo',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
