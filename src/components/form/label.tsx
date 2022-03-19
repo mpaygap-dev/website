@@ -11,7 +11,10 @@ export const Label = (props: React.ComponentPropsWithoutRef<'label'>) => {
     <label
       htmlFor={inputId}
       {...props}
-      className={cls('block text-gray-700', props.className)}
+      className={cls(
+        'block text-sm font-medium text-gray-700',
+        props.className
+      )}
     />
   );
 };

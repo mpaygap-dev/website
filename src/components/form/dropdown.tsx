@@ -26,7 +26,7 @@ export const Dropdown = React.forwardRef<HTMLSelectElement, DropdownProps>(
       <select
         id={inputId}
         className={cls(
-          'block min-w-0 w-full rounded-md shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50',
+          'block min-w-0 w-full sm:text-sm rounded-md shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50',
           status ? borderByStatus[status] : 'border-gray-300',
           inputProps.disabled && 'bg-gray-100 text-gray-400',
           className

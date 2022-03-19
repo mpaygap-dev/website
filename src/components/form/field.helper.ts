@@ -25,4 +25,10 @@ export type ComposedFieldProps = Omit<FieldProps, 'className' | 'children'> & {
   wrapperClass?: string;
 };
 
-const fieldKeys = ['status', 'label', 'wrapperClass', 'helpText'] as const;
+const fieldKeys = [
+  'status',
+  'label',
+  'wrapperClass',
+  'helpText',
+  'secondaryLabel',
+] as const;

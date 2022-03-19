@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import * as React from 'react';
 
 import { Button } from '@/components/buttons';
-import { DropdownField, TextField } from '@/components/form';
+import { DropdownField, TextareaField, TextField } from '@/components/form';
 import { Layout } from '@/components/layout';
 import {
   ArrowLink,
@@ -260,7 +260,11 @@ export default function ComponentsPage() {
                 <div className='flex flex-col flex-wrap gap-4'>
                   <TextField label='Default' />
                   <TextField label='Disabled' disabled />
-                  <TextField label='Success' status='success' />
+                  <TextField
+                    label='Success'
+                    status='success'
+                    secondaryLabel='Optional'
+                  />
                   <TextField label='Warning' status='warning' />
                   <TextField label='Error' status='error' helpText='Required' />
                 </div>
@@ -278,7 +282,11 @@ export default function ComponentsPage() {
                     <option value='2'>Two</option>
                     <option value='3'>Three</option>
                   </DropdownField>
-                  <DropdownField label='Success' status='success'>
+                  <DropdownField
+                    label='Success'
+                    status='success'
+                    secondaryLabel='Optional'
+                  >
                     <option value='1'>One</option>
                     <option value='2'>Two</option>
                     <option value='3'>Three</option>
@@ -288,11 +296,33 @@ export default function ComponentsPage() {
                     <option value='2'>Two</option>
                     <option value='3'>Three</option>
                   </DropdownField>
-                  <DropdownField label='Error' status='error'>
+                  <DropdownField
+                    label='Error'
+                    status='error'
+                    helpText='Required'
+                  >
                     <option value='1'>One</option>
                     <option value='2'>Two</option>
                     <option value='3'>Three</option>
                   </DropdownField>
+                </div>
+              </li>
+              <li>
+                <h2>TextareaField</h2>
+                <div className='flex flex-col flex-wrap gap-4'>
+                  <TextareaField label='Default' />
+                  <TextareaField label='Disabled' disabled />
+                  <TextareaField
+                    label='Success'
+                    status='success'
+                    secondaryLabel='Optional'
+                  />
+                  <TextareaField label='Warning' status='warning' />
+                  <TextareaField
+                    label='Error'
+                    status='error'
+                    helpText='Required'
+                  />
                 </div>
               </li>
             </ol>

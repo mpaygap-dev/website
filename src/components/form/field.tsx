@@ -10,6 +10,7 @@ export interface FieldProps {
   children: React.ReactNode;
   status?: FieldStatus;
   label?: React.ReactNode;
+  secondaryLabel?: string;
   helpText?: React.ReactNode;
   className?: string;
 }
@@ -18,12 +19,7 @@ export const Field = (props: FieldProps) => {
   const [inputId, setInputId] = React.useState('');
 
   return (
-    <div
-      className={cls(
-        'flex flex-col sm:flex-row gap-1 sm:gap-3',
-        props.className
-      )}
-    >
+    <div className={cls('flex flex-col gap-1', props.className)}>
       <FieldContext.Provider
         value={{
           inputId,
@@ -31,11 +27,18 @@ export const Field = (props: FieldProps) => {
           status: props.status,
         }}
       >
-        {props.label && <Label className='sm:mt-2 flex-1'>{props.label}</Label>}
-        <div className='flex-2 lg:flex-3'>
-          {props.children}
-          {props.helpText && <HelpText>{props.helpText}</HelpText>}
-        </div>
+        {(props.label || props.secondaryLabel) && (
+          <div className='flex justify-between'>
+            {props.label ? <Label>{props.label}</Label> : <span />}
+            {props.secondaryLabel && (
+              <span className='text-sm text-gray-500'>
+                {props.secondaryLabel}
+              </span>
+            )}
+          </div>
+        )}
+        {props.children}
+        {props.helpText && <HelpText>{props.helpText}</HelpText>}
       </FieldContext.Provider>
     </div>
   );
