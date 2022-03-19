@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import UnstyledLink from '@/components/links/UnstyledLink';
+import { UnstyledLink } from '@/components/links';
 
 const links = [
   { href: '/', label: 'Route 1' },
   { href: '/', label: 'Route 2' },
 ];
 
-export default function Header() {
+export function Header() {
   return (
     <header className='sticky top-0 z-50 bg-white'>
       <div className='layout flex h-14 items-center justify-between'>

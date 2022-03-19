@@ -1,7 +1,7 @@
 import Image, { ImageLoaderProps, ImageProps } from 'next/image';
 import * as React from 'react';
 
-import clsxm from '@/lib/clsxm';
+import { cls } from '@/lib/clsxm';
 
 type NextImageProps = (
   | { width: string | number; height: string | number }
@@ -9,7 +9,7 @@ type NextImageProps = (
 ) &
   ImageProps;
 
-export default function NextImage({
+export function NextImage({
   className,
   src,
   width,
@@ -19,7 +19,7 @@ export default function NextImage({
   ...rest
 }: NextImageProps) {
   return (
-    <div className={clsxm(className)}>
+    <div className={cls(className)}>
       <Image
         className='transition-all duration-200'
         src={src}

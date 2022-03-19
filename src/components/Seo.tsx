@@ -20,7 +20,7 @@ type SeoProps = {
   templateTitle?: string;
 } & Partial<typeof defaultMeta>;
 
-export default function Seo(props: SeoProps) {
+export function Seo(props: SeoProps) {
   const router = useRouter();
   const meta = {
     ...defaultMeta,

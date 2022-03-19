@@ -1,12 +1,10 @@
 import * as React from 'react';
 
-import clsxm from '@/lib/clsxm';
+import { cls } from '@/lib/clsxm';
 
-import UnstyledLink, {
-  UnstyledLinkProps,
-} from '@/components/links/UnstyledLink';
+import { UnstyledLink, UnstyledLinkProps } from './unstyled-link';
 
-enum ButtonVariant {
+export enum ButtonVariant {
   'primary',
   'outline',
   'ghost',
@@ -14,21 +12,21 @@ enum ButtonVariant {
   'dark',
 }
 
-type ButtonLinkProps = {
+export type ButtonLinkProps = {
   isDarkBg?: boolean;
   variant?: keyof typeof ButtonVariant;
 } & UnstyledLinkProps;
 
-const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
-  (
+export const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
+  function ButtonLink(
     { children, className, variant = 'primary', isDarkBg = false, ...rest },
     ref
-  ) => {
+  ) {
     return (
       <UnstyledLink
         ref={ref}
         {...rest}
-        className={clsxm(
+        className={cls(
           'inline-flex items-center rounded px-4 py-2 font-semibold',
           'focus:outline-none focus-visible:ring focus-visible:ring-primary-500',
           'shadow-sm',
@@ -57,9 +55,9 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
                 'hover:bg-gray-900 active:bg-gray-800 disabled:bg-gray-800',
             ],
             variant === 'light' && [
-              'bg-white text-dark ',
+              'bg-white text-primary-600 ',
               'border border-gray-300',
-              'hover:bg-gray-100 hover:text-dark',
+              'hover:bg-gray-100',
               'active:bg-white/80 disabled:bg-gray-200',
             ],
             variant === 'dark' && [
@@ -78,5 +76,3 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
     );
   }
 );
-
-export default ButtonLink;
