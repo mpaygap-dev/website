@@ -1,8 +1,8 @@
-// !STARTERCONF You can delete this page
 import clsx from 'clsx';
 import * as React from 'react';
 
 import { Button } from '@/components/buttons';
+import { DropdownField, TextField } from '@/components/form';
 import { Layout } from '@/components/layout';
 import {
   ArrowLink,
@@ -15,11 +15,9 @@ import { NextImage } from '@/components/next-image';
 import { Seo } from '@/components/seo';
 import { Skeleton } from '@/components/skeleton';
 
-type Color = typeof colorList[number];
-
 export default function ComponentsPage() {
   const [mode, setMode] = React.useState<'dark' | 'light'>('light');
-  const [color, setColor] = React.useState<Color>('sky');
+  const [color] = React.useState('sky');
   function toggleMode() {
     return mode === 'dark' ? setMode('light') : setMode('dark');
   }
@@ -33,13 +31,13 @@ export default function ComponentsPage() {
         description='Pre-built components with awesome default'
       />
 
-      <main>
+      <main className='py-20 space-y-20 min-h-screen'>
         <section
           className={clsx(mode === 'dark' ? 'bg-dark' : 'bg-gray-50', color)}
         >
           <div
             className={clsx(
-              'layout min-h-screen py-20',
+              'layout',
               mode === 'dark' ? 'text-white' : 'text-black'
             )}
           >
@@ -59,69 +57,6 @@ export default function ComponentsPage() {
             </div>
 
             <ol className='mt-8 space-y-6'>
-              <li className='space-y-2'>
-                <h2 className='text-lg md:text-xl'>Customize Colors</h2>
-                <p className={clsx('!mt-1 text-sm', textColor)}>
-                  You can change primary color to any Tailwind CSS colors. See
-                  globals.css to change your color.
-                </p>
-                <div className='flex flex-wrap gap-2'>
-                  <select
-                    name='color'
-                    id='color'
-                    value={color}
-                    className={clsx(
-                      'block max-w-xs rounded',
-                      mode === 'dark'
-                        ? 'border border-gray-600 bg-dark'
-                        : 'border-gray-300 bg-white',
-                      'focus:border-primary-400 focus:outline-none focus:ring focus:ring-primary-400'
-                    )}
-                    onChange={(e) => setColor(e.target.value as Color)}
-                  >
-                    {colorList.map((c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
-                    ))}
-                  </select>
-                  <ButtonLink href='https://github.com/theodorusclarence/ts-nextjs-tailwind-starter/blob/main/src/styles/colors.css'>
-                    Check list of colors
-                  </ButtonLink>
-                </div>
-                <div className='flex flex-wrap gap-2 text-xs font-medium'>
-                  <div className='flex h-10 w-10 items-center justify-center rounded bg-primary-50 text-black'>
-                    50
-                  </div>
-                  <div className='flex h-10 w-10 items-center justify-center rounded bg-primary-100 text-black'>
-                    100
-                  </div>
-                  <div className='flex h-10 w-10 items-center justify-center rounded bg-primary-200 text-black'>
-                    200
-                  </div>
-                  <div className='flex h-10 w-10 items-center justify-center rounded bg-primary-300 text-black'>
-                    300
-                  </div>
-                  <div className='flex h-10 w-10 items-center justify-center rounded bg-primary-400 text-black'>
-                    400
-                  </div>
-                  <div className='flex h-10 w-10 items-center justify-center rounded bg-primary-500 text-black'>
-                    500
-                  </div>
-                  <div className='flex h-10 w-10 items-center justify-center rounded bg-primary-600 text-white'>
-                    600
-                  </div>
-                  <div className='flex h-10 w-10 items-center justify-center rounded bg-primary-700 text-white'>
-                    700
-                  </div>
-                  <div className='flex h-10 w-10 items-center justify-center rounded bg-primary-800 text-white'>
-                    800
-                  </div>
-                  <div className='flex h-10 w-10 items-center justify-center rounded bg-primary-900 text-white'>
-                    900
-                  </div>
-                </div>
-              </li>
               <li className='space-y-2'>
                 <h2 className='text-lg md:text-xl'>UnstyledLink</h2>
                 <p className={clsx('!mt-1 text-sm', textColor)}>
@@ -316,32 +251,54 @@ export default function ComponentsPage() {
             </ol>
           </div>
         </section>
+        <section>
+          <div className='layout'>
+            <h1>Form Components</h1>
+            <ol className='mt-8 space-y-6'>
+              <li>
+                <h2>TextField</h2>
+                <div className='flex flex-col flex-wrap gap-4'>
+                  <TextField label='Default' />
+                  <TextField label='Disabled' disabled />
+                  <TextField label='Success' status='success' />
+                  <TextField label='Warning' status='warning' />
+                  <TextField label='Error' status='error' helpText='Required' />
+                </div>
+              </li>
+              <li>
+                <h2>DropdownField</h2>
+                <div className='flex flex-col flex-wrap gap-4'>
+                  <DropdownField label='Default'>
+                    <option value='1'>One</option>
+                    <option value='2'>Two</option>
+                    <option value='3'>Three</option>
+                  </DropdownField>
+                  <DropdownField label='Disabled' disabled>
+                    <option value='1'>One</option>
+                    <option value='2'>Two</option>
+                    <option value='3'>Three</option>
+                  </DropdownField>
+                  <DropdownField label='Success' status='success'>
+                    <option value='1'>One</option>
+                    <option value='2'>Two</option>
+                    <option value='3'>Three</option>
+                  </DropdownField>
+                  <DropdownField label='Warning' status='warning'>
+                    <option value='1'>One</option>
+                    <option value='2'>Two</option>
+                    <option value='3'>Three</option>
+                  </DropdownField>
+                  <DropdownField label='Error' status='error'>
+                    <option value='1'>One</option>
+                    <option value='2'>Two</option>
+                    <option value='3'>Three</option>
+                  </DropdownField>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </section>
       </main>
     </Layout>
   );
 }
-
-const colorList = [
-  'rose',
-  'pink',
-  'fuchsia',
-  'purple',
-  'violet',
-  'indigo',
-  'blue',
-  'sky',
-  'cyan',
-  'teal',
-  'emerald',
-  'green',
-  'lime',
-  'yellow',
-  'amber',
-  'orange',
-  'red',
-  'slate',
-  'gray',
-  'zinc',
-  'neutral',
-  'stone',
-] as const;
