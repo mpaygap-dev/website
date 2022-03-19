@@ -12,7 +12,7 @@ export default function HomePage() {
 
       <main>
         <section className='bg-primary-400'>
-          <div className='layout flex min-h-screen flex-col items-center justify-center text-center pb-24'>
+          <div className='layout h-[calc(100vh-73px)] flex flex-col items-center justify-center text-center pb-24'>
             <NextImage
               // className='mt-8'
               src='/images/mgp.jpg'
