@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { createNameContext } from '@/lib/create-named-context';
+import { createNamedContext } from '@/lib/create-named-context';
 import { noop } from '@/lib/fn-lib';
 import { useId } from '@/hooks/use-id';
 
@@ -18,7 +18,7 @@ const DEFAULT_CONTEXT: FieldContextType = {
   status: undefined,
 };
 
-export const FieldContext = createNameContext('Field', DEFAULT_CONTEXT);
+export const FieldContext = createNamedContext('Field', DEFAULT_CONTEXT);
 
 export const useFieldControlContext = (providedId: string | undefined) => {
   const id = useId(providedId);
