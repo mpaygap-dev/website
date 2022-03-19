@@ -2,7 +2,15 @@ import clsx from 'clsx';
 import * as React from 'react';
 
 import { Button } from '@/components/buttons';
-import { DropdownField, TextareaField, TextField } from '@/components/form';
+import {
+  DropdownField,
+  LinearScaleField,
+  Radio,
+  RadioCard,
+  RadioField,
+  TextareaField,
+  TextField,
+} from '@/components/form';
 import { Layout } from '@/components/layout';
 import {
   ArrowLink,
@@ -325,6 +333,18 @@ export default function ComponentsPage() {
                   />
                 </div>
               </li>
+              <li>
+                <h2>Radio</h2>
+                <RadioDemo />
+              </li>
+              <li>
+                <h2>RadioCard</h2>
+                <RadioCardDemo />
+              </li>
+              <li>
+                <h2>LinearScaleField</h2>
+                <LinearScaleDemo />
+              </li>
             </ol>
           </div>
         </section>
@@ -332,3 +352,87 @@ export default function ComponentsPage() {
     </Layout>
   );
 }
+
+const RadioDemo = () => {
+  const [value, setValue] = React.useState('');
+  const [secondValue, setSecondValue] = React.useState('');
+  const [loveMe, setLoveMe] = React.useState('');
+
+  return (
+    <div className='flex flex-col flex-wrap gap-4'>
+      <Radio.Group name='gender' value={value} onChangeValue={setValue}>
+        <Radio value='female' label='Female' />
+        <Radio value='male' label='Male' />
+        <Radio value='others' label='Non-binary/others' disabled />
+      </Radio.Group>
+      <RadioField
+        label='Is your job remote?'
+        name='remote'
+        value={secondValue}
+        onChangeValue={setSecondValue}
+        options={[
+          {
+            label: 'Yes',
+            value: 'yes',
+          },
+          {
+            label: 'No',
+            value: 'no',
+          },
+          {
+            label: 'Hybrid',
+            value: 'hybrid',
+          },
+        ]}
+      />
+      <RadioField
+        label='Do you love me?'
+        name='loveme'
+        value={loveMe}
+        onChangeValue={setLoveMe}
+        layout='horizontal'
+        options={[
+          {
+            label: 'Yes',
+            value: 'yes',
+          },
+          {
+            label: 'No',
+            value: 'no',
+          },
+        ]}
+      />
+    </div>
+  );
+};
+
+const RadioCardDemo = () => {
+  const [value, setValue] = React.useState('');
+
+  return (
+    <div className='flex flex-col flex-wrap gap-4'>
+      <RadioCard.Group value={value} onChangeValue={setValue}>
+        <RadioCard value='1' label='1' />
+        <RadioCard value='2' label='2' />
+        <RadioCard value='3' label='3' />
+        <RadioCard value='4' label='4' />
+        <RadioCard value='5' label='5' />
+      </RadioCard.Group>
+    </div>
+  );
+};
+
+const LinearScaleDemo = () => {
+  const [value, setValue] = React.useState<number | undefined>();
+
+  return (
+    <LinearScaleField
+      label='How satisfied are you with your current job overall? (Secara keseluruhan, adakah anda berpuas hati dengan kerja anda sekarang?)'
+      value={value}
+      onChangeValue={setValue}
+      fromLabel='Very unsatisfied (Sangat tidak berpuas hati)'
+      toLabel='Very satisfied (Sangat berpuas hati)'
+      secondaryLabel='Optional'
+    />
+  );
+};

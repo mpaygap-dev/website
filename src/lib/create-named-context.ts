@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export const createNameContext = <ContextType>(
+export const createNamedContext = <ContextType>(
   displayName: string,
   defaultValue: ContextType
 ) => {

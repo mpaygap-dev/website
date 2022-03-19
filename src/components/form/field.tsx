@@ -28,7 +28,7 @@ export const Field = (props: FieldProps) => {
         }}
       >
         {(props.label || props.secondaryLabel) && (
-          <div className='flex justify-between'>
+          <div className='flex justify-between gap-5'>
             {props.label ? <Label>{props.label}</Label> : <span />}
             {props.secondaryLabel && (
               <span className='text-sm text-gray-500'>
