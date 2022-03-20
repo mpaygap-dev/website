@@ -2,6 +2,7 @@ export type { DropdownProps } from './dropdown';
 export { Dropdown } from './dropdown';
 export type { DropdownFieldProps } from './dropdown-field';
 export { DropdownField } from './dropdown-field';
+export { Form } from './form';
 export type { LinearScaleFieldProps } from './linear-scale-field';
 export { LinearScaleField } from './linear-scale-field';
 export type { RadioContextType, RadioGroupProps, RadioProps } from './radio';

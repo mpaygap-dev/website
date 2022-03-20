@@ -13,7 +13,10 @@ export const TextareaField = React.forwardRef<
   const { fieldProps, controlProps } = groupProps(props);
 
   return (
-    <Field {...fieldProps}>
+    <Field
+      secondaryLabel={controlProps.required ? undefined : 'Optional'}
+      {...fieldProps}
+    >
       <Textarea {...controlProps} ref={ref} />
     </Field>
   );

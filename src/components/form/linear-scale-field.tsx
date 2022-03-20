@@ -14,6 +14,7 @@ export interface LinearScaleFieldProps
   to?: number;
   fromLabel?: React.ReactNode;
   toLabel?: React.ReactNode;
+  required?: boolean;
 }
 
 export const LinearScaleField = (providedProps: LinearScaleFieldProps) => {
@@ -25,7 +26,10 @@ export const LinearScaleField = (providedProps: LinearScaleFieldProps) => {
   const options = React.useMemo(() => range(from, to), [from, to]);
 
   return (
-    <Field {...fieldProps}>
+    <Field
+      secondaryLabel={radioProps.required ? undefined : 'Optional'}
+      {...fieldProps}
+    >
       <RadioCard.Group
         {...radioProps}
         className={cls(

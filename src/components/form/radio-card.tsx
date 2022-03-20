@@ -33,17 +33,19 @@ export interface RadioCardGroupProps<Value extends string | number>
   value: Value | undefined;
   onChangeValue: (value: Value) => void;
   children: React.ReactNode;
+  disabled?: boolean;
   noSpacing?: boolean;
 }
 
 const RadioCardGroup = <Value extends string | number>({
   value,
   onChangeValue,
+  disabled,
   noSpacing,
   ...divProps
 }: RadioCardGroupProps<Value>) => {
   return (
-    <RadioGroup value={value} onChange={onChangeValue}>
+    <RadioGroup value={value} onChange={onChangeValue} disabled={disabled}>
       <div
         {...divProps}
         className={cls(!noSpacing && 'flex gap-3', divProps.className)}
