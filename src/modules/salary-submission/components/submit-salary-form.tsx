@@ -3,8 +3,10 @@ import { useForm } from 'react-hook-form';
 
 import { countryOptions } from '@/lib/country-options';
 
+import { ErrorAlert } from '@/components/alert';
 import { Button } from '@/components/buttons';
 import { Form } from '@/components/form';
+import { formatErrors } from '@/components/form/form';
 import { Stepper } from '@/components/stepper';
 
 export const SubmitSalaryForm = () => {
@@ -69,11 +71,20 @@ interface PersonalDetailsData {
   education?: string;
 }
 
+const labelForPersonalDetails: Record<keyof PersonalDetailsData, string> = {
+  age: 'Age (Umur)',
+  gender: 'Gender identity (Jantina)',
+  nationality: 'Nationality (Warganegara)',
+  race: 'Race (Kaum)',
+  education:
+    'What is your highest education qualification? (Apakah kelayakan pendidikan tertinggi anda?)',
+};
+
 const SubmitSalaryPersonalDetailsForm = (props: {
   initialValues?: PersonalDetailsData;
   onComplete: (data: Required<PersonalDetailsData>) => void;
 }) => {
-  const { control, handleSubmit } = useForm<PersonalDetailsData>({
+  const form = useForm<PersonalDetailsData>({
     defaultValues: props.initialValues || {
       age: '',
       gender: '',
@@ -81,25 +92,29 @@ const SubmitSalaryPersonalDetailsForm = (props: {
     },
   });
 
+  const { formState, handleSubmit } = form;
+
+  const formErrors = formatErrors(formState.errors, labelForPersonalDetails);
+
   return (
     <Form
-      control={control}
+      form={form}
       onSubmit={handleSubmit((values) => {
         props.onComplete(values as any);
       })}
     >
       <div className='space-y-8'>
+        <ErrorAlert errors={formErrors} />
         <div className='grid md:grid-cols-2 gap-8'>
-          <Form.TextField
-            label='Age (Umur)'
+          <Form.NumberField
+            label={labelForPersonalDetails.age}
             name='age'
-            type='number'
             min={12}
-            rules={{ min: 12 }}
             required
+            decimalPlaces={0}
           />
           <Form.DropdownField
-            label='Gender identity (Jantina)'
+            label={labelForPersonalDetails.gender}
             name='gender'
             required
           >
@@ -110,7 +125,7 @@ const SubmitSalaryPersonalDetailsForm = (props: {
           </Form.DropdownField>
         </div>
         <Form.RadioField
-          label='Race (Kaum)'
+          label={labelForPersonalDetails.race}
           name='race'
           required
           layout='horizontal'
@@ -139,7 +154,7 @@ const SubmitSalaryPersonalDetailsForm = (props: {
           allowOthers
         />
         <Form.DropdownField
-          label='Nationality (Warganegara)'
+          label={labelForPersonalDetails.nationality}
           name='nationality'
           required
         >
@@ -151,7 +166,7 @@ const SubmitSalaryPersonalDetailsForm = (props: {
           ))}
         </Form.DropdownField>
         <Form.RadioField
-          label='What is your highest education qualification? (Apakah kelayakan pendidikan tertinggi anda?)'
+          label={labelForPersonalDetails.education}
           name='education'
           required
           options={[
@@ -208,23 +223,32 @@ interface SalaryDetails {
   jobTitle: string;
 }
 
+const labelForSalarylDetails: Record<keyof SalaryDetails, string> = {
+  jobTitle: 'Job title (Pekerjaan Anda)',
+};
+
 const SubmitSalarySalaryDetailsForm = (props: {
   initialValues?: SalaryDetails;
   onComplete: (data: Required<SalaryDetails>) => void;
 }) => {
-  const { control, handleSubmit } = useForm({
+  const form = useForm({
     defaultValues: props.initialValues || {
       jobTitle: '',
     },
   });
 
+  const { formState, handleSubmit } = form;
+  const formErrors = formatErrors(formState.errors, labelForSalarylDetails);
+
   return (
-    <Form control={control} onSubmit={handleSubmit(props.onComplete)}>
+    <Form form={form} onSubmit={handleSubmit(props.onComplete)}>
       <div className='space-y-8'>
+        <ErrorAlert errors={formErrors} />
         <Form.TextField
           name='jobTitle'
-          label='Job title (Pekerjaan Anda)'
+          label={labelForSalarylDetails.jobTitle}
           required
+          minLength={2}
         />
         <div>
           <Button type='submit' className='w-full justify-center'>
@@ -240,23 +264,29 @@ interface ThoughtsAndVerificationDetails {
   thoughts: string;
 }
 
+const labelForThoughts: Record<keyof ThoughtsAndVerificationDetails, string> = {
+  thoughts:
+    'Additional thoughts/insights you would like to share (Kongsikan pendapat / luahan hati anda)',
+};
+
 const SubmitSalaryThoughtsAndVerificationForm = (props: {
   initialValues?: ThoughtsAndVerificationDetails;
   onComplete: (data: Required<ThoughtsAndVerificationDetails>) => void;
 }) => {
-  const { control, handleSubmit } = useForm({
+  const form = useForm({
     defaultValues: props.initialValues || {
       thoughts: '',
     },
   });
 
+  const { formState, handleSubmit } = form;
+  const formErrors = formatErrors(formState.errors, labelForThoughts);
+
   return (
-    <Form control={control} onSubmit={handleSubmit(props.onComplete)}>
+    <Form form={form} onSubmit={handleSubmit(props.onComplete)}>
       <div className='space-y-8'>
-        <Form.TextareaField
-          name='thoughts'
-          label='Additional thoughts/insights you would like to share: (Kongsikan pendapat / luahan hati anda:)'
-        />
+        <ErrorAlert errors={formErrors} />
+        <Form.TextareaField name='thoughts' label={labelForThoughts.thoughts} />
         <div>
           <Button type='submit' className='w-full justify-center'>
             SUBMIT

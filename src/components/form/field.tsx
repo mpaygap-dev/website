@@ -1,3 +1,4 @@
+import { Transition } from '@headlessui/react';
 import * as React from 'react';
 
 import { cls } from '@/lib/clsxm';
@@ -37,8 +38,22 @@ export const Field = (props: FieldProps) => {
             )}
           </div>
         )}
-        {props.children}
-        {props.helpText && <HelpText>{props.helpText}</HelpText>}
+        <div>
+          {props.children}
+          <Transition
+            show={!!props.helpText}
+            enter='transition-all duration-150 overflow-hidden'
+            enterFrom='h-0'
+            enterTo='h-6'
+            leave='transition-all duration-150 overflow-hidden'
+            leaveFrom='h-6'
+            leaveTo='h-0'
+          >
+            <HelpText aria-hidden={!props.helpText}>
+              {props.helpText || '\u00A0'}
+            </HelpText>
+          </Transition>
+        </div>
       </FieldContext.Provider>
     </div>
   );

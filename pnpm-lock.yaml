@@ -5,6 +5,7 @@ specifiers:
   '@commitlint/config-conventional': ^16.2.1
   '@headlessui/react': ^1.5.0
   '@heroicons/react': ^1.0.6
+  '@radix-ui/react-announce': ^0.1.4
   '@svgr/webpack': ^6.2.1
   '@tailwindcss/forms': ^0.5.0
   '@testing-library/jest-dom': ^5.16.2
@@ -34,6 +35,8 @@ specifiers:
   react-hook-form: ^7.28.0
   react-icons: ^4.3.1
   react-textarea-autosize: ^8.3.3
+  rifm: ^0.12.1
+  scroll-into-view-if-needed: ^2.2.29
   standard-version: ^9.3.2
   tailwind-merge: ^1.2.0
   tailwindcss: ^3.0.23
@@ -42,6 +45,7 @@ specifiers:
 dependencies:
   '@headlessui/react': 1.5.0_react-dom@17.0.2+react@17.0.2
   '@heroicons/react': 1.0.6_react@17.0.2
+  '@radix-ui/react-announce': 0.1.4_react-dom@17.0.2+react@17.0.2
   clsx: 1.1.1
   countries-and-timezones: 3.3.0
   next: 12.1.0_react-dom@17.0.2+react@17.0.2
@@ -50,6 +54,8 @@ dependencies:
   react-hook-form: 7.28.0_react@17.0.2
   react-icons: 4.3.1_react@17.0.2
   react-textarea-autosize: 8.3.3_00d6772dea80510e818fd171caaa025a
+  rifm: 0.12.1_react@17.0.2
+  scroll-into-view-if-needed: 2.2.29
   tailwind-merge: 1.2.0
 
 devDependencies:
@@ -1952,6 +1958,58 @@ packages:
       fastq: 1.13.0
     dev: true
 
+  /@radix-ui/react-announce/0.1.4_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-9ipgKscZj1YegSmdySWSZB99SusybhlV5zz7ELgMILLfr9BDsaRoj9TsNzGdFYvOwDCAh29MATwbcZsTGwnMWw==}
+    peerDependencies:
+      react: ^16.8 || ^17.0
+      react-dom: ^16.8 || ^17.0
+    dependencies:
+      '@babel/runtime': 7.17.8
+      '@radix-ui/react-compose-refs': 0.1.0_react@17.0.2
+      '@radix-ui/react-primitive': 0.1.4_react@17.0.2
+      '@radix-ui/react-use-layout-effect': 0.1.0_react@17.0.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: false
+
+  /@radix-ui/react-compose-refs/0.1.0_react@17.0.2:
+    resolution: {integrity: sha512-eyclbh+b77k+69Dk72q3694OHrn9B3QsoIRx7ywX341U9RK1ThgQjMFZoPtmZNQTksXHLNEiefR8hGVeFyInGg==}
+    peerDependencies:
+      react: ^16.8 || ^17.0
+    dependencies:
+      '@babel/runtime': 7.17.8
+      react: 17.0.2
+    dev: false
+
+  /@radix-ui/react-primitive/0.1.4_react@17.0.2:
+    resolution: {integrity: sha512-6gSl2IidySupIMJFjYnDIkIWRyQdbu/AHK7rbICPani+LW4b0XdxBXc46og/iZvuwW8pjCS8I2SadIerv84xYA==}
+    peerDependencies:
+      react: ^16.8 || ^17.0
+    dependencies:
+      '@babel/runtime': 7.17.8
+      '@radix-ui/react-slot': 0.1.2_react@17.0.2
+      react: 17.0.2
+    dev: false
+
+  /@radix-ui/react-slot/0.1.2_react@17.0.2:
+    resolution: {integrity: sha512-ADkqfL+agEzEguU3yS26jfB50hRrwf7U4VTwAOZEmi/g+ITcBWe12yM46ueS/UCIMI9Py+gFUaAdxgxafFvY2Q==}
+    peerDependencies:
+      react: ^16.8 || ^17.0
+    dependencies:
+      '@babel/runtime': 7.17.8
+      '@radix-ui/react-compose-refs': 0.1.0_react@17.0.2
+      react: 17.0.2
+    dev: false
+
+  /@radix-ui/react-use-layout-effect/0.1.0_react@17.0.2:
+    resolution: {integrity: sha512-+wdeS51Y+E1q1Wmd+1xSSbesZkpVj4jsg0BojCbopWvgq5iBvixw5vgemscdh58ep98BwUbsFYnrywFhV9yrVg==}
+    peerDependencies:
+      react: ^16.8 || ^17.0
+    dependencies:
+      '@babel/runtime': 7.17.8
+      react: 17.0.2
+    dev: false
+
   /@rushstack/eslint-patch/1.1.1:
     resolution: {integrity: sha512-BUyKJGdDWqvWC5GEhyOiUrGNi9iJUr4CU0O2WxJL6QJhHeeA/NVBalH+FeK0r/x/W0rPymXt5s78TDS7d6lCwg==}
     dev: true
@@ -3076,6 +3134,10 @@ packages:
       array-ify: 1.0.0
       dot-prop: 5.3.0
     dev: true
+
+  /compute-scroll-into-view/1.0.17:
+    resolution: {integrity: sha512-j4dx+Fb0URmzbwwMUrhqWM2BEWHdFGx+qZ9qqASHRPqvTYdqvWnHg0H1hIbcyLnvgnoNAVMlwkepyqM3DaIFUg==}
+    dev: false
 
   /concat-map/0.0.1:
     resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
@@ -6318,7 +6380,7 @@ packages:
   /regenerator-transform/0.14.5:
     resolution: {integrity: sha512-eOf6vka5IO151Jfsw2NO9WpGX58W6wWmefK3I1zEGr0lOD0u8rwPaNqQL1aRxUaxLeKO3ArNh3VYg1KbaD+FFw==}
     dependencies:
-      '@babel/runtime': 7.17.2
+      '@babel/runtime': 7.17.8
     dev: true
 
   /regexp.prototype.flags/1.4.1:
@@ -6424,6 +6486,14 @@ packages:
     resolution: {integrity: sha512-V2hovdzFbOi77/WajaSMXk2OLm+xNIeQdMMuB7icj7bk6zi2F8GGAxigcnDFpJHbNyNcgyJDiP+8nOrY5cZGrA==}
     dev: true
 
+  /rifm/0.12.1_react@17.0.2:
+    resolution: {integrity: sha512-OGA1Bitg/dSJtI/c4dh90svzaUPt228kzFsUkJbtA2c964IqEAwWXeL9ZJi86xWv3j5SMqRvGULl7bA6cK0Bvg==}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      react: 17.0.2
+    dev: false
+
   /rimraf/3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     hasBin: true
@@ -6467,6 +6537,12 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
+    dev: false
+
+  /scroll-into-view-if-needed/2.2.29:
+    resolution: {integrity: sha512-hxpAR6AN+Gh53AdAimHM6C8oTN1ppwVZITihix+WqalywBeFcQ6LdQP5ABNl26nX8GTEL7VT+b8lKpdqq65wXg==}
+    dependencies:
+      compute-scroll-into-view: 1.0.17
     dev: false
 
   /semver/5.7.1:
