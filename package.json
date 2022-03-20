@@ -22,6 +22,7 @@
   "dependencies": {
     "@headlessui/react": "^1.5.0",
     "@heroicons/react": "^1.0.6",
+    "@radix-ui/react-announce": "^0.1.4",
     "clsx": "^1.1.1",
     "countries-and-timezones": "^3.3.0",
     "next": "^12.1.0",
@@ -30,6 +31,8 @@
     "react-hook-form": "^7.28.0",
     "react-icons": "^4.3.1",
     "react-textarea-autosize": "^8.3.3",
+    "rifm": "^0.12.1",
+    "scroll-into-view-if-needed": "^2.2.29",
     "tailwind-merge": "^1.2.0"
   },
   "devDependencies": {

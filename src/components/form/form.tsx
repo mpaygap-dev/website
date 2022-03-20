@@ -1,41 +1,53 @@
 import * as React from 'react';
-import { Control, Controller, UseControllerProps } from 'react-hook-form';
+import {
+  Controller,
+  FieldError,
+  FieldErrors,
+  UseControllerProps,
+  UseFormReturn,
+} from 'react-hook-form';
 
 import { createNamedContext } from '@/lib/create-named-context';
+import { useIsClient } from '@/hooks/use-is-client';
 
 import { DropdownField } from './dropdown-field';
+import { FieldStatus } from './field-context';
 import { LinearScaleField } from './linear-scale-field';
+import { NumberField } from './number-field';
 import { RadioField } from './radio-field';
 import { TextField } from './text-field';
 import { TextareaField } from './textarea-field';
 
 interface FormControlContextType {
-  control: Control<any> | undefined;
+  form: UseFormReturn<any> | undefined;
   isLoading?: boolean;
 }
 
 const FormControlContext = createNamedContext<FormControlContextType>(
   'FormControlContext',
   {
-    control: undefined,
+    form: undefined,
   }
 );
 
 const FormImpl = React.forwardRef<
   HTMLFormElement,
   React.ComponentPropsWithoutRef<'form'> & FormControlContextType
->(function Form({ control, isLoading, ...props }, forwardedRef) {
+>(function Form({ form, isLoading, ...props }, forwardedRef) {
+  const isClient = useIsClient();
+
   return (
     <FormControlContext.Provider
       value={React.useMemo(
         () => ({
-          control,
+          form,
           isLoading,
         }),
-        [control, isLoading]
+        [form, isLoading]
       )}
     >
-      <form {...props} ref={forwardedRef} />
+      {/* remove browser default validation when js running */}
+      <form noValidate={isClient} {...props} ref={forwardedRef} />
     </FormControlContext.Provider>
   );
 });
@@ -49,15 +61,38 @@ type FormControlProps<OriControlProps> = Omit<
   rules?: UseControllerProps['rules'];
 };
 
-const makeFormControl = <OriControlProps extends { required?: boolean }>(
+const makeFormControl = <
+  OriControlProps extends {
+    required?: boolean;
+    status?: FieldStatus;
+    id?: string;
+    helpText?: React.ReactNode;
+    minLength?: number;
+  }
+>(
   Component: React.ComponentType<OriControlProps>
 ) => {
   function FormControl({
     required,
-    rules = required ? { required } : undefined,
+    minLength,
+    rules = required || minLength
+      ? {
+          required: required && {
+            value: required,
+            message: `Required`,
+          },
+          minLength: minLength && {
+            value: minLength,
+            message: `must be at least ${minLength} character`,
+          },
+        }
+      : undefined,
     ...props
   }: FormControlProps<OriControlProps>) {
-    const { control, isLoading } = React.useContext(FormControlContext);
+    const { form, isLoading } = React.useContext(FormControlContext);
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const { control } = form!;
 
     return (
       <Controller
@@ -65,17 +100,22 @@ const makeFormControl = <OriControlProps extends { required?: boolean }>(
         control={control}
         defaultValue={props.defaultValue as any}
         rules={rules}
-        render={({ field }) => (
-          <Component
-            {...(props as any)}
-            required={required}
-            value={field.value}
-            name={field.name}
-            onChangeValue={field.onChange}
-            onBlur={field.onBlur}
-            disabled={isLoading}
-          />
-        )}
+        render={({ field, fieldState }) => {
+          return (
+            <Component
+              id={field.name}
+              {...(props as any)}
+              required={required}
+              value={field.value}
+              name={field.name}
+              onChangeValue={field.onChange}
+              onBlur={field.onBlur}
+              disabled={isLoading}
+              status={fieldState.invalid ? 'error' : undefined}
+              helpText={fieldState.error && fieldState.error.message}
+            />
+          );
+        }}
       />
     );
   }
@@ -90,5 +130,35 @@ export const Form = Object.assign(FormImpl, {
   TextField: makeFormControl(TextField),
   TextareaField: makeFormControl(TextareaField),
   RadioField: makeFormControl(RadioField),
+  NumberField: makeFormControl(NumberField),
   LinearScaleField: makeFormControl(LinearScaleField),
 });
+
+export const formatErrors = <FormValues extends object>(
+  formErrors: FieldErrors<FormValues>,
+  labels: Record<keyof FormValues, string>
+) => {
+  if (!formErrors) {
+    return [];
+  }
+
+  const errs: Array<string> = [];
+
+  Object.keys(formErrors).forEach((k) => {
+    const key = k as keyof FormValues;
+    const error: FieldError = (formErrors as any)[key];
+    if (error) {
+      if ('type' in error) {
+        if (error.type === 'required') {
+          errs.push(`${labels[key]} is required.`);
+        } else if (error.type === 'minLength' && error.message) {
+          errs.push(`${labels[key]} ${error.message}.`);
+        } else {
+          // eslint-disable-next-line no-console
+          console.log({ error });
+        }
+      }
+    }
+  });
+  return errs;
+};
