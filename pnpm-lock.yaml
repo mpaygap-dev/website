@@ -4,6 +4,7 @@ specifiers:
   '@commitlint/cli': ^16.2.3
   '@commitlint/config-conventional': ^16.2.1
   '@headlessui/react': ^1.5.0
+  '@heroicons/react': ^1.0.6
   '@svgr/webpack': ^6.2.1
   '@tailwindcss/forms': ^0.5.0
   '@testing-library/jest-dom': ^5.16.2
@@ -14,6 +15,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.15.0
   autoprefixer: ^10.4.4
   clsx: ^1.1.1
+  countries-and-timezones: ^3.3.0
   eslint: ^8.11.0
   eslint-config-next: ^12.1.0
   eslint-config-prettier: ^8.5.0
@@ -29,6 +31,7 @@ specifiers:
   prettier-plugin-tailwindcss: ^0.1.8
   react: ^17.0.2
   react-dom: ^17.0.2
+  react-hook-form: ^7.28.0
   react-icons: ^4.3.1
   react-textarea-autosize: ^8.3.3
   standard-version: ^9.3.2
@@ -38,10 +41,13 @@ specifiers:
 
 dependencies:
   '@headlessui/react': 1.5.0_react-dom@17.0.2+react@17.0.2
+  '@heroicons/react': 1.0.6_react@17.0.2
   clsx: 1.1.1
+  countries-and-timezones: 3.3.0
   next: 12.1.0_react-dom@17.0.2+react@17.0.2
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
+  react-hook-form: 7.28.0_react@17.0.2
   react-icons: 4.3.1_react@17.0.2
   react-textarea-autosize: 8.3.3_00d6772dea80510e818fd171caaa025a
   tailwind-merge: 1.2.0
@@ -1563,6 +1569,14 @@ packages:
     dependencies:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
+    dev: false
+
+  /@heroicons/react/1.0.6_react@17.0.2:
+    resolution: {integrity: sha512-JJCXydOFWMDpCP4q13iEplA503MQO3xLoZiKum+955ZCtHINWnx26CUxVxxFQu/uLb4LW3ge15ZpzIkXKkJ8oQ==}
+    peerDependencies:
+      react: '>= 16'
+    dependencies:
+      react: 17.0.2
     dev: false
 
   /@humanwhocodes/config-array/0.9.5:
@@ -3299,6 +3313,11 @@ packages:
       path-type: 4.0.0
       yaml: 1.10.2
     dev: true
+
+  /countries-and-timezones/3.3.0:
+    resolution: {integrity: sha512-HkuEKmiHSAOoRW6FAQsCywd6XI6V0g7a4EfQXc99c7bh4vnCAhnoZ1jHEV0QliJumbFX8lFbCX2nu5d8eUiEJw==}
+    engines: {node: '>=8.x', npm: '>=5.x'}
+    dev: false
 
   /create-require/1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
@@ -6161,6 +6180,15 @@ packages:
       object-assign: 4.1.1
       react: 17.0.2
       scheduler: 0.20.2
+    dev: false
+
+  /react-hook-form/7.28.0_react@17.0.2:
+    resolution: {integrity: sha512-mmLpT86BkMGPr0r6ca8zxV0WH4Y1FW5MKs7Rq1+uHLVeeg5pSWbF5Z/qLCnM5vPVblHNM6lRBRRotnfEAf0ALA==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17
+    dependencies:
+      react: 17.0.2
     dev: false
 
   /react-icons/4.3.1_react@17.0.2:

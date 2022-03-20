@@ -6,9 +6,10 @@ import { callAll } from '@/lib/fn-lib';
 import { useId } from '@/hooks/use-id';
 
 export interface RadioContextType {
-  value: string;
+  value: string | undefined;
   name: string;
   onChangeValue: (value: string) => void;
+  required?: boolean;
 }
 
 const RadioContext = createNamedContext<RadioContextType>(
@@ -34,6 +35,7 @@ const RadioImpl = React.forwardRef<HTMLInputElement, RadioProps>(function Radio(
     checked,
     name,
     className,
+    required,
     ...inputProps
   },
   ref
@@ -46,6 +48,8 @@ const RadioImpl = React.forwardRef<HTMLInputElement, RadioProps>(function Radio(
     : checked;
 
   const radioName = radioGroupContext ? radioGroupContext.name : name;
+
+  const isRequired = radioGroupContext ? radioGroupContext.required : required;
 
   return (
     <label
@@ -66,6 +70,7 @@ const RadioImpl = React.forwardRef<HTMLInputElement, RadioProps>(function Radio(
               (() => radioGroupContext.onChangeValue(inputProps.value))
           )}
           name={radioName}
+          required={isRequired}
           checked={isChecked}
           id={inputId}
           type='radio'
@@ -74,7 +79,7 @@ const RadioImpl = React.forwardRef<HTMLInputElement, RadioProps>(function Radio(
       </span>
       <span
         className={cls(
-          'text-base sm:text-sm',
+          'text-base sm:text-sm py-1 text-gray-700',
           inputProps.disabled && 'opacity-40',
           labelClass
         )}
@@ -86,12 +91,13 @@ const RadioImpl = React.forwardRef<HTMLInputElement, RadioProps>(function Radio(
 });
 
 export interface RadioGroupProps extends React.ComponentPropsWithoutRef<'div'> {
-  value: string;
+  value: string | undefined;
   name: string;
   onChangeValue: (value: string) => void;
   children: React.ReactNode;
   layout?: 'horizontal' | 'vertical';
   noSpacing?: boolean;
+  required?: boolean;
 }
 
 const RadioGroup = ({
@@ -100,6 +106,7 @@ const RadioGroup = ({
   onChangeValue,
   layout,
   noSpacing,
+  required,
   ...divProps
 }: RadioGroupProps) => {
   const contextValue = React.useMemo(
@@ -107,8 +114,9 @@ const RadioGroup = ({
       value: value,
       name: name,
       onChangeValue: onChangeValue,
+      required,
     }),
-    [value, name, onChangeValue]
+    [value, name, onChangeValue, required]
   );
 
   return (
@@ -119,7 +127,7 @@ const RadioGroup = ({
           !noSpacing && [
             'py-2',
             layout === 'horizontal'
-              ? 'flex items-center gap-8 flex-wrap'
+              ? 'flex items-center gap-x-8 gap-y-4 flex-wrap'
               : 'space-y-4',
           ],
           divProps.className

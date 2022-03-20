@@ -4,6 +4,7 @@ import TextareaAutosize, {
 } from 'react-textarea-autosize';
 
 import { cls } from '@/lib/clsxm';
+import { callAll } from '@/lib/fn-lib';
 
 import { borderByStatus } from './border';
 import { useFieldControlContext } from './field-context';
@@ -24,6 +25,10 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           status ? borderByStatus[status] : 'border-gray-300',
           (props.readOnly || props.disabled) && 'bg-gray-100 text-gray-400',
           props.className
+        )}
+        onChange={callAll(
+          props.onChange,
+          onChangeValue && ((ev) => onChangeValue(ev.target.value))
         )}
         id={inputId}
         minRows={minRows}

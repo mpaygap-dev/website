@@ -13,7 +13,10 @@ export const DropdownField = React.forwardRef<
   const { fieldProps, controlProps } = groupProps(props);
 
   return (
-    <Field {...fieldProps}>
+    <Field
+      secondaryLabel={controlProps.required ? undefined : 'Optional'}
+      {...fieldProps}
+    >
       <Dropdown {...controlProps} ref={ref} />
     </Field>
   );

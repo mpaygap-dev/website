@@ -11,7 +11,10 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
     const { fieldProps, controlProps } = groupProps(props);
 
     return (
-      <Field {...fieldProps}>
+      <Field
+        secondaryLabel={controlProps.required ? undefined : 'Optional'}
+        {...fieldProps}
+      >
         <TextInput {...controlProps} ref={ref} />
       </Field>
     );
