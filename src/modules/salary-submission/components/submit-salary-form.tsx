@@ -221,10 +221,47 @@ const SubmitSalaryPersonalDetailsForm = (props: {
 
 interface SalaryDetails {
   jobTitle: string;
+  yearsOfExperience: string;
+  numOfJobs: string;
+  workingInMsia: string;
+  isJobRemote: string;
+  state: string;
+  typeOfCompany: string;
+  industry: string;
+  specialization: string;
+  averageWorkingHour: string;
+  averageWorkingDay: string;
+  monthSalaryInMyr: string;
+  firstJobSalaryInMyr: string;
+  salarySatisfaction: string;
+  overallJobSatisfaction: string;
 }
 
-const labelForSalarylDetails: Record<keyof SalaryDetails, string> = {
+const labelForSalaryDetails: Record<keyof SalaryDetails, string> = {
   jobTitle: 'Job title (Pekerjaan Anda)',
+  yearsOfExperience: 'Years of experience (Tahun Pengalaman)',
+  numOfJobs:
+    'How many jobs have you held in your career? (Berapa bilangan pekerjaan sepanjang tempoh karier anda?)',
+  workingInMsia:
+    'Are you working in/from Malaysia? (Anda bekerja di Malaysia?)',
+  isJobRemote: 'Is your job remote? (Anda bekerja dari rumah?)',
+  state: 'Where are you based? (Tempat anda menetap?)',
+  typeOfCompany:
+    'What type of company do you work for? (Jenis syarikat yang anda bekerja?)',
+  industry: 'Industry (Industri)',
+  specialization: 'Job Specialisation (Pengkhususan Pekerjaan)',
+  averageWorkingDay:
+    'Average working hours per day (Purata jam bekerja dalam sehari)',
+  averageWorkingHour:
+    'Average working days per week (Purata hari bekerja dalam seminggu)',
+  monthSalaryInMyr:
+    'Monthly salary in Ringgit Malaysia (Gross: before EPF, tax deduction) (Gaji bulanan dalam Ringgit Malaysia (Gaji Kasar: Sebelum KWSP & tolakan cukai))',
+  firstJobSalaryInMyr:
+    'Starting salary for your first job in Ringgit Malaysia (Gaji pekerjaan pertama anda dalam Ringgit Malaysia)',
+  salarySatisfaction:
+    'How happy are you with your current salary/compensation package? (Apa perasaan anda tentang pakej gaji anda sekarang?)',
+  overallJobSatisfaction:
+    'How satisfied are you with your current job overall? (Secara keseluruhan, adakah anda berpuas hati dengan kerja anda sekarang?)',
 };
 
 const SubmitSalarySalaryDetailsForm = (props: {
@@ -234,11 +271,25 @@ const SubmitSalarySalaryDetailsForm = (props: {
   const form = useForm({
     defaultValues: props.initialValues || {
       jobTitle: '',
+      yearsOfExperience: '',
+      numOfJobs: '',
+      workingInMsia: '',
+      isJobRemote: '',
+      state: '',
+      typeOfCompany: '',
+      industry: '',
+      specialization: '',
+      averageWorkingDay: '',
+      averageWorkingHour: '',
+      monthSalaryInMyr: '',
+      firstJobSalaryInMyr: '',
+      salarySatisfaction: '',
+      overallJobSatisfaction: '',
     },
   });
 
   const { formState, handleSubmit } = form;
-  const formErrors = formatErrors(formState.errors, labelForSalarylDetails);
+  const formErrors = formatErrors(formState.errors, labelForSalaryDetails);
 
   return (
     <Form form={form} onSubmit={handleSubmit(props.onComplete)}>
@@ -246,10 +297,78 @@ const SubmitSalarySalaryDetailsForm = (props: {
         <ErrorAlert errors={formErrors} />
         <Form.TextField
           name='jobTitle'
-          label={labelForSalarylDetails.jobTitle}
+          label={labelForSalaryDetails.jobTitle}
           required
           minLength={2}
         />
+        <Form.NumberField
+          name='yearsOfExperience'
+          label={labelForSalaryDetails.yearsOfExperience}
+          required
+          decimalPlaces={0}
+        />
+        <Form.NumberField
+          name='numOfJobs'
+          label={labelForSalaryDetails.numOfJobs}
+          required
+          decimalPlaces={0}
+        />
+        <div className='grid md:grid-cols-2 gap-8'>
+          <Form.RadioField
+            name='workingInMsia'
+            label={labelForSalaryDetails.workingInMsia}
+            options={[
+              {
+                label: 'Yes',
+                value: 'Yes',
+              },
+              {
+                label: 'No',
+                value: 'No',
+              },
+            ]}
+            required
+            layout='horizontal'
+          />
+          <Form.RadioField
+            name='isJobRemote'
+            label={labelForSalaryDetails.isJobRemote}
+            options={[
+              {
+                label: 'Yes',
+                value: 'Yes',
+              },
+              {
+                label: 'No',
+                value: 'No',
+              },
+              {
+                label: 'Hybrid',
+                value: 'Hybrid',
+              },
+            ]}
+            required
+            layout='horizontal'
+          />
+        </div>
+        <Form.DropdownField
+          name='state'
+          label={labelForSalaryDetails.state}
+          required
+        >
+          <option value=''>Please select</option>
+          <option value='Federal Territory of Kuala Lumpur'>
+            Federal Territory of Kuala Lumpur
+          </option>
+          <option value='Federal Territory of Labuan'>
+            Federal Territory of Labuan
+          </option>
+          <option value='Federal Territory of Putrajaya'>
+            Federal Territory of Putrajaya
+          </option>
+          <option value='Johor'>Johor</option>
+          <option value='Kedah'>Kedah</option>
+        </Form.DropdownField>
         <div>
           <Button type='submit' className='w-full justify-center'>
             NEXT
